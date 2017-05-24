@@ -1,8 +1,8 @@
 const EDITOR_DEPENDENCIES = [
         'simpla-article-toolbar.html',
         '../simpla-richtext-behavior/simpla-richtext-behavior.html'
-       ],
-       DEFAULT_PLUGINS = [
+      ],
+      DEFAULT_PLUGINS = [
         'bold',
         'italic',
         'link',
@@ -10,7 +10,7 @@ const EDITOR_DEPENDENCIES = [
         'heading',
         'blockquote',
         'image'
-       ];
+      ];
 
 export default {
   observers: [
@@ -23,12 +23,10 @@ export default {
    * @return {Promise} Resolves when all dependencies loaded
    */
   _importEditorDeps() {
-    let depImports = [];
-
-    EDITOR_DEPENDENCIES.forEach(dep => {
-      depImports.push(new Promise((resolve, reject) => {
+    let depImports = EDITOR_DEPENDENCIES.map(dep => {
+      return new Promise((resolve, reject) => {
         this.importHref(this.resolveUrl(dep), resolve, reject);
-      }));
+      });
     });
 
     return Promise.all(depImports);

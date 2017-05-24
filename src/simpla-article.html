@@ -84,7 +84,7 @@
 
       /**
        * Set value prop on attach
-       * @return {[type]} [description]
+       * @return {undefined}
        */
       attached() {
         this._refreshValue();
@@ -127,7 +127,7 @@
        */
       _goActive() {
         if (this.editable) {
-          this.actvie = true;
+          this.active = true;
         }
       },
 
@@ -146,7 +146,7 @@
        */
       _ensureInactiveIfNotEditable(editable) {
         if (!editable) {
-          this.active = false
+          this.active = false;
         }
       },
     });
