@@ -12,11 +12,10 @@ const EDITOR_DEPENDENCIES = [
         'image'
       ];
 
+let toolbar = document.createElement('simpla-article-toolbar');
+
 export default {
-  observers: [
-    '_initEditor(editable)',
-    '_syncEditableToEditor(editable)'
-  ],
+  observers: ['_initEditor(editable)', '_syncEditableToEditor(editable)'],
 
   /**
    * Imports editor dependencies into page
@@ -38,22 +37,35 @@ export default {
    * @return {undefined}
    */
   _initEditor(editable) {
+    let setupEditor, attachToolbar;
+
     if (!editable || !!this._editor) {
       return;
     }
 
-    this._importEditorDeps()
-      .then(() => {
-        const { RichText } = window.SimplaBehaviors;
+    setupEditor = () => {
+      const { RichText } = window.SimplaBehaviors;
 
-        this._editor = new RichText(this, {
-          inline: false,
-          placeholder: this.placeholder,
-          plugins: DEFAULT_PLUGINS,
-          editable: this.editable,
-          typographer: !this.noTypographer
-        });
-      })
+      let editor = new RichText(this, {
+        inline: false,
+        placeholder: this.placeholder,
+        plugins: DEFAULT_PLUGINS,
+        editable: this.editable,
+        typographer: !this.noTypographer
+      });
+
+      editor.on('focus', () => toolbar.editor = editor);
+
+      this._editor = editor;
+    };
+
+    attachToolbar = () => {
+      if (!toolbar.parentElement) {
+        document.body.appendChild(toolbar);
+      }
+    };
+
+    this._importEditorDeps().then(setupEditor).then(attachToolbar);
   },
 
   /**
@@ -68,4 +80,4 @@ export default {
       editor.editable = editable;
     }
   }
-}
+};

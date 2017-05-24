@@ -33,6 +33,7 @@
       Range formatting toolbar
      -->
     <div class="toolbar range"
+      data-name="range"
       visible$="[[_isContext('range', context)]]"
     >
     POSITION ME OVER SELECTED RANGE
@@ -42,6 +43,7 @@
       Newline embed controls
     -->
     <div class="toolbar newline"
+      data-name="newLine"
       visible$="[[_isContext('newLine', context)]]"
     >
     POSITION ME LEFT OF NEWLINE
@@ -51,6 +53,7 @@
       Image controls
      -->
     <div class="toolbar image"
+      data-name="image"
       visible$="[[_isContext('image', context)]]"
     >
     POSITION ME OVER FOCUSSED IMAGE
@@ -58,6 +61,14 @@
 
   </template>
   <script>
+    import Anchor from './behaviors/anchor';
+
+    const TOOLBAR_CONFIGS = {
+      'newLine': { placement: 'left' },
+      'image': { placement: 'top' },
+      'range': { placement: 'top '}
+    };
+
     Polymer({
       is: 'simpla-article-toolbar',
 
@@ -70,8 +81,66 @@
         context: {
           type: String,
           value: ''
+        },
+
+        /**
+         * Editor instance to attach toolbar to
+         * @type {Object}
+         */
+        editor: {
+          type: Object,
+          observer: '_updateEditorBindings'
+        },
+
+        /**
+         * Current bounds the toolbar should follow
+         * @type {Object}
+         */
+        bounds: Object
+
+      },
+
+      behaviors: [ Anchor ],
+
+      attached() {
+        Polymer.dom(this.root)
+          .querySelectorAll('.toolbar')
+          .forEach(toolbar => {
+            this.anchor(toolbar, TOOLBAR_CONFIGS[toolbar.dataset.name]);
+          });
+      },
+
+      _updateEditorBindings(editor, oldEditor) {
+        this.__updatePositions = this.__updatePositions || (({ bounds } = {}) => {
+          this.bounds = bounds;
+        });
+
+        this.__updateContext = this.__updateContext || (() => {
+          let { selection, plugins: { image } } = editor;
+
+          if (image.applied) {
+            this.context = 'image';
+          } else if (image.applicable) {
+            this.context = 'newLine';
+          } else if (selection) {
+            this.context = 'range';
+          } else {
+            this.context = null;
+          }
+        });
+
+        if (editor) {
+          editor.on('select', this.__updatePositions);
+          editor.on('plugin', this.__updateContext);
+
+          this.__updatePositions();
+          this.__updateContext();
         }
 
+        if (oldEditor) {
+          editor.off('select', this.__updatePositions);
+          editor.off('plugin', this.__updateContext);
+        }
       },
 
       /**
