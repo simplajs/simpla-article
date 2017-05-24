@@ -11,6 +11,23 @@
       :host([contenteditable]) {
         outline: none;
       }
+
+      :host ::slotted(img) {
+
+      }
+
+      /**
+       * Hide selected images. See https://github.com/SimplaElements/simpla-richtext-behavior/issues/7
+       * NOTE: This CSS is illegal in ShadowDOM v1 / Polymer 2 Hybrid elements
+       *  and will need to removed, however there is no equivalent in Shadow DOM v1
+       */
+      :host ::content img::selection {
+        background: transparent;
+      }
+
+      :host ::content img::-moz-selection {
+        background: transparent;
+      }
     </style>
     <slot></slot>
   </template>
