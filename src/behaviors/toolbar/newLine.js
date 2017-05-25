@@ -1,10 +1,10 @@
 export default {
 
   _embed(e) {
-    const plugin = Polymer.dom(e).rootTarget.dataset.embed;
+    const { embed } = Polymer.dom(e).rootTarget.dataset;
 
     // DEBUGGING - SRC SHOULD BE COMPUTED FROM UPLOAD
-    this.editor.embed(plugin, { src: 'https://unsplash.it/600/400'});
+    this.editor.embed(embed, { src: 'http://cdn.simpla.io/img/logo/logo-wordmark.png' });
   }
 
 }
