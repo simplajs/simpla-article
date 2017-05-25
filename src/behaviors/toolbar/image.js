@@ -1,9 +1,10 @@
 export default {
 
-  _positionImage(e) {
-    const { position } = Polymer.dom(e).rootTarget.dataset;
+  _alignImage(e) {
+    const { align } = Polymer.dom(e).rootTarget.dataset;
 
-    // Do stuff
+    // NEED TO FETCH SRC FROM EXISTING IMG, TO PATCH ALIGNMENT
+    this.editor.embed('image', { src: 'http://cdn.simpla.io/img/logo/logo-wordmark.png', alignment: align });
   }
 
 }
