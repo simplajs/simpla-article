@@ -58,10 +58,6 @@ export default {
       });
 
       editor.on('focus', () => toolbar.editor = editor);
-      editor.on('blur', () => {
-        toolbar.editor = null;
-        toolbar.context = '';
-      });
 
       this._editor = editor;
     };
