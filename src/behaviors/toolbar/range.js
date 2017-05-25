@@ -1,5 +1,4 @@
-const RANGE_SELECTOR = '[data-context="range"]',
-      LINK_EXIT_KEYS = [ 13, 27 ],
+const LINK_EXIT_KEYS = [ 13, 27 ],
       HEADING_LEVELS = 2;
 
 export default {
