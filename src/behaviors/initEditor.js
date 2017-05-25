@@ -15,7 +15,10 @@ const EDITOR_DEPENDENCIES = [
 let toolbar = document.createElement('simpla-article-toolbar');
 
 export default {
-  observers: ['_initEditor(editable)', '_syncEditableToEditor(editable)'],
+  observers: [
+    '_initEditor(editable)',
+    '_syncEditableToEditor(editable)'
+  ],
 
   /**
    * Imports editor dependencies into page
@@ -55,6 +58,10 @@ export default {
       });
 
       editor.on('focus', () => toolbar.editor = editor);
+      editor.on('blur', () => {
+        toolbar.editor = null;
+        toolbar.context = '';
+      });
 
       this._editor = editor;
     };
