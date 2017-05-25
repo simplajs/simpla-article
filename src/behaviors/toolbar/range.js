@@ -18,22 +18,21 @@ export default {
   },
 
   _format(e) {
-    let plugin = Polymer.dom(e).rootTarget.dataset.format;
+    let { format } = Polymer.dom(e).rootTarget.dataset;
 
-    this.editor.toggleFormat(plugin);
+    this.editor.toggleFormat(format);
   },
 
   _formatHeading() {
-    const { editor } = this,
-          { heading } = editor.plugins;
+    const { heading } = this.editor.plugins;
     let headingSize;
 
     if (heading.applied && heading.meta.level < HEADING_LEVELS) {
-      editor.format('heading', { level: heading.meta.level + 1 })
+      this.editor.format('heading', { level: heading.meta.level + 1 })
     } else if (heading.applied && heading.meta.level === HEADING_LEVELS) {
-      editor.removeFormat('heading');
+      this.editor.removeFormat('heading');
     } else {
-      editor.format('heading', { level: 1 });
+      this.editor.format('heading', { level: 1 });
     }
   },
 
@@ -42,11 +41,11 @@ export default {
   },
 
   _updateLink(linkActive) {
-    const { meta: data } = this.editor.plugins.link,
+    const { meta: link } = this.editor.plugins.link,
           currentHref = this._linkHref.trim();
 
     if (linkActive) {
-      this._linkHref = data && data.href ? data.href : '';
+      this._linkHref = link && link.href ? link.href : '';
       this.$['range-link-input'].focus();
     } else {
       this.editor.removeFormat('link');
