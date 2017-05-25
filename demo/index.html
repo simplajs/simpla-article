@@ -41,8 +41,46 @@
         font-weight: 400;
       }
 
+      /* Content styles */
+      simpla-article {
+        padding: 1em;
+      }
+
+      simpla-article h1, h2 {
+        font-weight: 400;
+      }
+
+      simpla-article h1 {
+        font-weight: 300;
+      }
+
       simpla-article img {
         max-width: 100%;
+      }
+
+      simpla-article img[data-alignment="right"] {
+        margin-right: -1em;
+      }
+
+      simpla-article img[data-alignment="left"] {
+        margin-left: -1em;
+      }
+
+      simpla-article blockquote {
+        border-left: 1px solid lightGrey;
+        padding-left: 1em;
+        margin-left: 2em;
+        font-weight: 300;
+        overflow: hidden;
+        font-style: italic;
+      }
+
+      simpla-article blockquote p:first-of-type {
+        margin-top: 0.5em;
+      }
+
+      simpla-article blockquote p:last-of-type {
+        margin-bottom: 0.5em;
       }
     </style>
   </head>
