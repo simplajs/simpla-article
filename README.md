@@ -164,6 +164,32 @@ Note you must be authenticated before saving content - login with your Simpla ac
 
 > If you have included the [simpla-admin](http://webcomponents.org/element/SimplaElements/simpla-admin) component on your site, you can save content by entering edit mode and just pressing the 'save' button.
 
+## Styling article content
+
+Simpla-article doesn't style your content, and generates the same clean, semantic markup you would write if you were to code content yourself.
+
+To style the content of simpla-article target its elements in with CSS
+
+```css
+simpla-article h1 {
+  font-size: 1.8em;
+  font-weight: 400;
+}
+```
+
+These are the only HTML elements allowed by simpla-article's content model:
+
+- Paragraphs are wrapped in `<p>`
+- Bold text is wrapped in `<strong>`
+- Italic text is wrapped in `<em>`
+- Links are wrapped in `<a>`
+- Blockquotes are wrapped in `<blockquote>`
+- Headings are wrapped in `<h1>` or `<h2>`
+- Lists use standard list elements (`<ul>`, `<ol>`, `<li>`)
+- Embedded images use standard `<img>`
+
+Embedded images have a `data-alignment` attribute with the image's current alignment (eg: `data-alignment="left"`). You can use this attribute to customize how aligned images behave (eg: offset left/right aligned images from the edge of the article with negative margins).
+
 ## Initializing with static content
 
 You can write HTML content inside simpla-article just like you would with any other element. The HTML you insert will be parsed and sanitized into simpla-article's content model when you enter edit mode. If content for an article's `path` exists on Simpla's API any static content will be overwritten.
@@ -179,7 +205,7 @@ Initializing with static content is useful for converting existing sites to Simp
 
 **Note:** Since any static content is overwritten by remote data, you should not have content inside `<simpla-article>` in production, because if newer content gets saved you will experience FOUC (Flash Of Unformatted Content) when the static content is overwritten.
 
-## Custom placeholder
+## Custom placeholders
 
 You can set custom placeholders (displayed when simpla-article is editable and does not have content) the same way as native elements, with a `placeholder` attribute
 
