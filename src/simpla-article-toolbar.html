@@ -324,6 +324,14 @@
       },
 
       attached() {
+        this._setupToolbars();
+      },
+
+      /**
+       * Setup toolbar anchors based on context
+       * @return {undefined}
+       */
+      _setupToolbars() {
         Polymer.dom(this.root)
           .querySelectorAll('[data-context]')
           .forEach(toolbar => {

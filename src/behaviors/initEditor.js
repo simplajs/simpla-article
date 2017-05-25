@@ -40,16 +40,8 @@ export default {
    * @return {undefined}
    */
   _initEditor(editable) {
-    let setupEditor, attachToolbar;
-
-    if (!editable || !!this._editor) {
-      return;
-    }
-
-    setupEditor = () => {
-      const { RichText } = window.SimplaBehaviors;
-
-      let editor = new RichText(this, {
+    const setupEditor = () => {
+      let editor = new SimplaBehaviors.RichText(this, {
         inline: false,
         placeholder: this.placeholder,
         plugins: DEFAULT_PLUGINS,
@@ -58,14 +50,16 @@ export default {
       });
 
       editor.on('focus', () => toolbar.editor = editor);
-
       this._editor = editor;
-    };
-
+    },
     attachToolbar = () => {
       if (!toolbar.parentElement) {
         document.body.appendChild(toolbar);
       }
+    };
+
+    if (!editable || !!this._editor) {
+      return;
     };
 
     this._importEditorDeps().then(setupEditor).then(attachToolbar);
