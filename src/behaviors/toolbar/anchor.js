@@ -13,15 +13,16 @@ const GUTTER = 5,
       };
 
 /**
- * Get Popper reference for given HTMLElement
- * @param  {HTMLElement} element HTMLElement with bounds property
- * @return {Object}      Popper reference object
+ * Get Popper reference with given getBounds function
+ * @param  {Function} getBounds Function which should return a DOMRect-like object
+ * @return {Object}             Popper reference object
  */
+
 function getReferenceFor(element) {
   return {
     getBoundingClientRect() {
       return (
-        element.bounds || {
+        element.getBounds() || {
           top: 0,
           left: 0,
           bottom: 0,
@@ -43,8 +44,6 @@ function getReferenceFor(element) {
 }
 
 export default {
-  observers: ['_updatePosition(bounds)'],
-
   created() {
     this.__poppers = [];
   },
@@ -61,7 +60,7 @@ export default {
     );
   },
 
-  _updatePosition(bounds) {
+  updateAnchors() {
     this.__poppers.forEach(anchor => anchor.scheduleUpdate());
   }
 };
