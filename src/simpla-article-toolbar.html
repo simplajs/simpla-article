@@ -63,6 +63,7 @@
 
       .bar__tool[active] {
         border-color: var(--simpla-primary-color);
+        color: var(--simpla-primary-color);
       }
 
       /**
@@ -112,10 +113,11 @@
        */
       .newline {
         color: var(--simpla-grey-700);
-        border: 1px solid currentColor;
-        border-radius: 999px;
-        padding: 0.5em;
         transition: color 100ms ease;
+        margin-right: 0.5em;
+        /* Positioning hack */
+        padding-bottom: 0.3em
+        ;
       }
 
       .newline:hover {
@@ -125,7 +127,7 @@
       /**
        * Image positioning
        */
-      .bar__tool--image {
+      .bar__tool--image iron-icon {
         transform: rotate(-90deg);
       }
 
