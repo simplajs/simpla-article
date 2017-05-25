@@ -166,7 +166,7 @@
         class="bar__tool bar__tool--range"
         data-format="bold"
         on-tap="_format"
-        active$="[[editor.plugins.bold.applied]]">
+        active$="[[state.bold.applied]]">
         <iron-icon
           icon="simpla-article-toolbar:format-bold">
         </iron-icon>
@@ -176,7 +176,7 @@
         class="bar__tool bar__tool--range"
         data-format="italic"
         on-tap="_format"
-        active$="[[editor.plugins.italic.applied]]">
+        active$="[[state.italic.applied]]">
         <iron-icon
           icon="simpla-article-toolbar:format-italic">
         </iron-icon>
@@ -186,7 +186,7 @@
         class="bar__tool bar__tool--range"
         data-format="heading"
         on-tap="_formatHeading"
-        active$="[[editor.plugins.heading.applied]]">
+        active$="[[state.heading.applied]]">
         <iron-icon
           icon="simpla-article-toolbar:format-size">
         </iron-icon>
@@ -196,7 +196,7 @@
         class="bar__tool bar__tool--range"
         data-format="blockquote"
         on-tap="_format"
-        active$="[[editor.plugins.blockquote.applied]]">
+        active$="[[state.blockquote.applied]]">
         <iron-icon
           icon="simpla-article-toolbar:format-quote">
         </iron-icon>
@@ -205,7 +205,7 @@
       <button
         class="bar__tool bar__tool--range bar__tool--range-link"
         data-format="link"
-        active$="[[editor.plugins.link.applied]]"
+        active$="[[state.link.applied]]"
         on-tap="_toggleLink">
         <iron-icon
           icon="simpla-article-toolbar:insert-link">
@@ -245,9 +245,9 @@
     >
       <button
         class="bar__tool bar__tool--image"
-        data-align="left"
+        data-alignment="left"
         on-tap="_alignImage"
-        active$="[[...]]">
+        active$="[[_equals(state.image.meta.alignment, 'left')]]">
         <iron-icon
           icon="simpla-article-toolbar:vertical-align-top">
         </iron-icon>
@@ -255,9 +255,9 @@
 
       <button
         class="bar__tool bar__tool--image"
-        data-align="center"
+        data-alignment="center"
         on-tap="_alignImage"
-        active$="[[...]]">
+        active$="[[_equals(state.image.meta.alignment, 'center')]]">
         <iron-icon
           icon="simpla-article-toolbar:vertical-align-center">
         </iron-icon>
@@ -265,9 +265,9 @@
 
       <button
         class="bar__tool bar__tool--image"
-        data-align="right"
+        data-alignment="right"
         on-tap="_alignImage"
-        active$="[[...]]">
+        active$="[[_equals(state.image.meta.alignment, 'right')]]">
         <iron-icon
           icon="simpla-article-toolbar:vertical-align-bottom">
         </iron-icon>
@@ -281,7 +281,7 @@
     const TOOLBAR_CONFIGS = {
       'newLine': { placement: 'left' },
       'image': { placement: 'top' },
-      'range': { placement: 'top '}
+      'range': { placement: 'top' }
     };
 
     Polymer({
@@ -308,10 +308,13 @@
         },
 
         /**
-         * Current bounds the toolbar should follow
+         * Current state of plugins for toolbar UIs
          * @type {Object}
          */
-        bounds: Object
+        state: {
+          type: Object,
+          value: () => ({})
+        }
 
       },
 
@@ -332,34 +335,54 @@
       },
 
       /**
+       * Get selection bounds of current editor
+       * @return {Object} DOMRect-like object or null
+       */
+      getBounds() {
+        return this.editor ? this.editor.getSelectionBounds() : null;
+      },
+
+      /**
        * Updates bindings to the toolbar's editor instance
        * @param  {Object} editor    Current editor instance to bind to
        * @param  {Object} oldEditor Old editor to unbind from
        * @return {undefined}
        */
       _updateEditorBindings(editor, oldEditor) {
-        this.__updatePositions = this.__updatePositions || (({ bounds } = {}) => {
-          this.bounds = bounds;
+        this.__closeToolbars = this.__closeToolbars || (() => {
+          this.context = null;
+        });
+
+        this.__updatePositions = this.__updatePositions || (() => {
+          this.updateAnchors();
         });
 
         this.__updateContext = this.__updateContext || (() => {
-          let { selection, plugins: { image } } = editor;
+          let { selection, plugins: { image } } = editor,
+              range;
+
+          range = selection && selection.rangeCount && selection.getRangeAt(0);
 
           if (image.applied) {
             this.context = 'image';
           } else if (image.applicable) {
             this.context = 'newLine';
-          } else if (selection) {
+          } else if (range && !range.collapsed) {
             this.context = 'range';
           } else {
             this.context = null;
           }
         });
 
+        this.__updateState = this.__updateState || ((plugin) => {
+          this.set(`state.${plugin.name}`, plugin);
+        });
+
         if (editor) {
           editor.on('select', this.__updatePositions);
           editor.on('select', this.__updateContext);
           editor.on('plugin', this.__updateContext);
+          editor.on('plugin', this.__updateState);
 
           this.__updatePositions();
           this.__updateContext();
@@ -369,6 +392,7 @@
           editor.off('select', this.__updatePositions);
           editor.off('select', this.__updateContext);
           editor.off('plugin', this.__updateContext);
+          editor.off('plugin', this.__updateState);
         }
       },
 
@@ -389,6 +413,16 @@
        */
       _stopEvent(event) {
         event.stopPropagation();
+      },
+
+      /**
+       * Simple bindings helpers to check values are equal
+       * @param  {mixed} a First value to check
+       * @param  {mixed} b Value to check against b
+       * @return {Boolean} Returns true if a === b
+       */
+      _equals(a, b) {
+        return a === b;
       }
     });
   </script>
