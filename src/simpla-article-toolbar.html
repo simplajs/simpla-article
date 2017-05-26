@@ -366,16 +366,12 @@
        * @return {undefined}
        */
       _updateEditorBindings(editor, oldEditor) {
-        this.__closeToolbars = this.__closeToolbars || (() => {
-          this.context = null;
-        });
-
         this.__updatePositions = this.__updatePositions || (() => {
           this.updateAnchors();
         });
 
         this.__updateContext = this.__updateContext || (() => {
-          let { selection: { empty }, plugins: { image } } = editor;
+          let { selection: { empty }, plugins: { image } } = this.editor;
 
           if (image.applied) {
             this.context = 'image';
@@ -394,6 +390,17 @@
 
         this.__updateVisibility = this.__updateVisibility || this._updateVisibility.bind(this);
 
+        this.state = {};
+        this.context = null;
+
+        if (oldEditor) {
+          editor.off('select', this.__updatePositions);
+          editor.off('select', this.__updateContext);
+          editor.off('plugin', this.__updateContext);
+          editor.off('plugin', this.__updateState);
+          editor.off('blur', this.__updateVisibility);
+        }
+
         if (editor) {
           editor.on('select', this.__updatePositions);
           editor.on('select', this.__updateContext);
@@ -403,14 +410,6 @@
 
           this.__updatePositions();
           this.__updateContext();
-        }
-
-        if (oldEditor) {
-          editor.off('select', this.__updatePositions);
-          editor.off('select', this.__updateContext);
-          editor.off('plugin', this.__updateContext);
-          editor.off('plugin', this.__updateState);
-          editor.off('blur', this.__updateVisibility);
         }
       },
 
