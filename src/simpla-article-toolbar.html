@@ -368,16 +368,13 @@
         });
 
         this.__updateContext = this.__updateContext || (() => {
-          let { selection, plugins: { image } } = editor,
-              range;
-
-          range = selection && selection.rangeCount && selection.getRangeAt(0);
+          let { selection: { empty }, plugins: { image } } = editor;
 
           if (image.applied) {
             this.context = 'image';
           } else if (image.applicable) {
             this.context = 'newLine';
-          } else if (range && !range.collapsed) {
+          } else if (!empty) {
             this.context = 'range';
           } else {
             this.context = null;
