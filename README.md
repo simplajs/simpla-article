@@ -19,13 +19,16 @@ Simpla-article is a web component that lets you write longform, rich-media artic
     <style>
       simpla-article {
         padding: 1em;
+        line-height: 1.6;
       }
 
       simpla-article h1, h2 {
         font-weight: 400;
+        line-height: 1.3;
       }
 
       simpla-article h1 {
+        font-size: 1.8em;
         font-weight: 300;
       }
 
