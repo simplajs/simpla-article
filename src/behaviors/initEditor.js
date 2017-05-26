@@ -50,6 +50,7 @@ export default {
       });
 
       editor.on('focus', () => toolbar.editor = editor);
+      editor.on('input', () => this._refreshValue());
       this._editor = editor;
     },
     attachToolbar = () => {
