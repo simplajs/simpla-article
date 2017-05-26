@@ -316,6 +316,12 @@
         state: {
           type: Object,
           value: () => ({})
+        },
+
+        tabindex: {
+          type: Number,
+          value: 0,
+          reflectToAttribute: true
         }
 
       },
@@ -325,7 +331,8 @@
       listeners: {
         'keyup': '_stopEvent',
         'keydown': '_stopEvent',
-        'keypress': '_stopEvent'
+        'keypress': '_stopEvent',
+        'blur': '_updateVisibility'
       },
 
       attached() {
@@ -385,11 +392,14 @@
           this.set(`state.${plugin.name}`, plugin);
         });
 
+        this.__updateVisibility = this.__updateVisibility || this._updateVisibility.bind(this);
+
         if (editor) {
           editor.on('select', this.__updatePositions);
           editor.on('select', this.__updateContext);
           editor.on('plugin', this.__updateContext);
           editor.on('plugin', this.__updateState);
+          editor.on('blur', this.__updateVisibility);
 
           this.__updatePositions();
           this.__updateContext();
@@ -400,6 +410,7 @@
           editor.off('select', this.__updateContext);
           editor.off('plugin', this.__updateContext);
           editor.off('plugin', this.__updateState);
+          editor.off('blur', this.__updateVisibility);
         }
       },
 
@@ -430,6 +441,18 @@
        */
       _equals(a, b) {
         return a === b;
+      },
+
+      /**
+       * Set context to null when blurring and focused element is not contained
+       *  by this element
+       * @param  {FocusEvent} event Blur event
+       * @return {undefined}
+       */
+      _updateVisibility(event) {
+        if (!(event.relatedTarget === this || this.contains(event.relatedTarget))) {
+          this.context = null;
+        }
       }
     });
   </script>
