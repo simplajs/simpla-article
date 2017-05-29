@@ -25,6 +25,17 @@ export default {
   },
 
   /**
+   * Focus on the editor, then perform the given action on it
+   * @param  {String} action Name of function to call on editor e.g. 'format'
+   * @param  {Array}  args   Arguments to give to editor function call
+   * @return {undefined}
+   */
+  _focusThen(action, ...args) {
+    this.editor.focus();
+    this.editor[action](...args);
+  },
+
+  /**
    * Formats current selection based on toolbar events
    * @param  {Event} e Tap event from toolbar button
    * @return {undefined}
@@ -32,7 +43,7 @@ export default {
   _format(e) {
     let { format } = Polymer.dom(e).rootTarget.dataset;
 
-    this.editor.toggleFormat(format);
+    this._focusThen('toggleFormat', format);
   },
 
   /**
@@ -44,11 +55,11 @@ export default {
     let headingSize;
 
     if (heading.applied && heading.meta.level < HEADING_LEVELS) {
-      this.editor.format('heading', { level: heading.meta.level + 1 })
+      this._focusThen('format', 'heading', { level: heading.meta.level + 1 });
     } else if (heading.applied && heading.meta.level === HEADING_LEVELS) {
-      this.editor.removeFormat('heading');
+      this._focusThen('removeFormat', 'heading');
     } else {
-      this.editor.format('heading', { level: 1 });
+      this._focusThen('format', 'heading', { level: 1 });
     }
   },
 
@@ -73,10 +84,10 @@ export default {
       this._linkHref = link && link.href ? link.href : '';
       this.$['range-link-input'].focus();
     } else {
-      this.editor.removeFormat('link');
+      this._focusThen('removeFormat', 'link');
 
       if (currentHref) {
-        this.editor.format('link', { href: currentHref });
+        this._focusThen('format', 'link', { href: currentHref });
       }
     }
   },
