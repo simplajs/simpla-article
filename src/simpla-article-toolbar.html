@@ -91,6 +91,7 @@
         outline: 0;
         border: 0;
         width: 0;
+        padding: 0;
         background: transparent;
         transition: width 150ms var(--simpla-easing-standard),
                     padding 150ms var(--simpla-easing-standard);
@@ -105,13 +106,13 @@
         padding: 0 0.5em;
       }
 
-      .bar--range[data-link-active] .bar__tool {
-        /* Tool + 0.5em padding */
-        margin-left: -1.5em;
-      }
-
       .bar--range[data-link-active] .bar__tool:not(.bar__tool--range-link) {
         visibility: hidden;
+        margin-left: -1.5em; /* Tool + 0.5em padding */
+      }
+
+      .bar--range[data-link-active] .bar__tool--range-link {
+        margin-left: -2em;
       }
 
       /**
@@ -445,7 +446,7 @@
        */
       _updateVisibility(event) {
         if (!(event.relatedTarget === this || this.contains(event.relatedTarget))) {
-          this.context = null;
+          // this.context = null;
         }
       }
     });
