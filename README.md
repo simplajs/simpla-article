@@ -7,7 +7,7 @@ Simpla-article is a web component that lets you write longform, rich-media artic
 ```
 <custom-element-demo>
   <template>
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="https://unpkg.com/webcomponents.js@^0.7.24/webcomponents-lite.min.js"></script>
     <script src="https://unpkg.com/simpla@^2.0.0"></script>
     <script>
       Simpla.init('local');
@@ -18,7 +18,9 @@ Simpla-article is a web component that lets you write longform, rich-media artic
 
     <style>
       simpla-article {
-        padding: 1em;
+        font-family: sans-serif;
+        color: #303c46
+        padding: 0.5em 1em;
         line-height: 1.6;
       }
 
