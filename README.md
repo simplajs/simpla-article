@@ -281,7 +281,7 @@ MIT © [Simpla][simpla]
 [travis-badge]: https://img.shields.io/travis/SimplaElements/simpla-article.svg
 [travis-url]: https://travis-ci.org/SimplaElements/simpla-article
 [bower-badge]: https://img.shields.io/bower/v/simpla-article.svg
-[size-badge]: http://img.badgesize.io/SimplaElements/simpla-article/master/simpla-article.html?compression=gzip&label=initial_bundle_%28gzip%29
+[size-badge]: http://img.badgesize.io/SimplaElements/simpla-article/master/simpla-article.html?compression=gzip&label=render_bundle_%28gzip%29
 [webcomponents-badge]: https://img.shields.io/badge/webcomponents.org-published-blue.svg
 [webcomponents-url]: https://www.webcomponents.org/element/SimplaElements/simpla-article
 [slack-badge]: http://slack.simpla.io/badge.svg
