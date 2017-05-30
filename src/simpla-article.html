@@ -6,8 +6,6 @@
     <style>
       :host {
         display: block;
-        word-wrap: break-word;
-        white-space: pre-wrap;
       }
 
       :host([contenteditable]) {
@@ -23,7 +21,6 @@
 
       /**
        * Styles for images in edit mode
-       * Simpla vars included by article-toolbar
        */
       :host ::slotted(img::selection) {
         background: transparent;
