@@ -4,15 +4,10 @@
     <meta charset="utf-8">
     <title>simpla-article</title>
 
-    <!-- Setup WCT -->
+    <!-- Setup -->
     <script src="https://unpkg.com/webcomponents.js@^0.7.24/webcomponents-lite.min.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
-
-    <!-- Setup Simpla -->
-    <script src="https://unpkg.com/simpla@^2.0.0"></script>
-    <script>
-      Simpla.init('test');
-    </script>
+    <link rel="import" href="./test-setup.html">
 
     <!-- Import simpla-article  -->
     <link rel="import" href="../simpla-article.html">
@@ -25,8 +20,8 @@
       </template>
     </test-fixture>
     <script>
-      describe('<simpla-article>', function() {
-        var component;
+      describe('<simpla-article>', () => {
+        let component;
 
         beforeEach(function() {
           component = fixture('default');
