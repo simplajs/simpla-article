@@ -78,14 +78,15 @@ export default {
    */
   _updateLink(rangeLinkActive) {
     const { meta: link } = this.editor.plugins.link,
-          currentHref = this._linkHref.trim();
+          currentHref = this._linkHref.trim(),
+          linkInput = this.$['range-link-input'];
 
     if (rangeLinkActive) {
       this._linkHref = link && link.href ? link.href : '';
-      this.$['range-link-input'].focus();
+      linkInput.focus();
     } else {
-      this._focusThen('removeFormat', 'link');
-
+      this.editor.removeFormat('link');
+      linkInput.blur();
       if (currentHref) {
         this._focusThen('format', 'link', { href: currentHref });
       }

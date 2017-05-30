@@ -57,8 +57,14 @@
       }
 
       .bar__tool {
+        cursor: pointer;
+        user-select: none;
         padding: 0.4em 0.5em;
         border-bottom: 2px solid transparent;
+      }
+
+      .bar__tool:focus {
+        outline: none;
       }
 
       .bar__tool[active] {
@@ -115,6 +121,7 @@
         color: var(--simpla-grey-700);
         transition: color 100ms ease;
         margin-right: 0.5em;
+        cursor: pointer;
         /* Positioning hack */
         padding-bottom: 0.3em
         ;
@@ -129,20 +136,6 @@
        */
       .bar__tool--image iron-icon {
         transform: rotate(-90deg);
-      }
-
-      /* Reset default button styles */
-      button {
-        font: inherit;
-        color: inherit;
-        line-height: normal;
-        background: none;
-        user-select: none;
-        -webkit-touch-callout: none;
-        border: 0;
-        padding: 0;
-        outline: 0;
-        cursor: pointer;
       }
 
       /* Stop icons becoming tap targets */
@@ -164,55 +157,55 @@
       visible$="[[_isContext('range', context)]]"
       data-link-active$="[[_rangeLinkActive]]"
     >
-      <button
+      <a data-format="bold"
         class="bar__tool bar__tool--range"
-        data-format="bold"
         on-tap="_format"
-        active$="[[state.bold.applied]]">
+        active$="[[state.bold.applied]]"
+        tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:format-bold">
         </iron-icon>
-      </button>
+      </a>
 
-      <button
+      <a data-format="italic"
         class="bar__tool bar__tool--range"
-        data-format="italic"
         on-tap="_format"
-        active$="[[state.italic.applied]]">
+        active$="[[state.italic.applied]]"
+        tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:format-italic">
         </iron-icon>
-      </button>
+      </a>
 
-      <button
+      <a data-format="heading"
         class="bar__tool bar__tool--range"
-        data-format="heading"
         on-tap="_formatHeading"
-        active$="[[state.heading.applied]]">
+        active$="[[state.heading.applied]]"
+        tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:format-size">
         </iron-icon>
-      </button>
+      </a>
 
-      <button
+      <a data-format="blockquote"
         class="bar__tool bar__tool--range"
-        data-format="blockquote"
         on-tap="_format"
-        active$="[[state.blockquote.applied]]">
+        active$="[[state.blockquote.applied]]"
+        tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:format-quote">
         </iron-icon>
-      </button>
+      </a>
 
-      <button
+      <a data-format="link"
         class="bar__tool bar__tool--range bar__tool--range-link"
-        data-format="link"
         active$="[[state.link.applied]]"
-        on-tap="_toggleLink">
+        on-tap="_toggleLink"
+        tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:insert-link">
         </iron-icon>
-      </button>
+      </a>
       <input
         id="range-link-input"
         class="range__link"
@@ -227,7 +220,7 @@
       Newline embed controls
       Will become expandable picker when more embeds available
     -->
-    <button class="toolbar newline"
+    <a class="toolbar newline"
       data-context="newLine"
       on-tap="_embed"
       data-embed="image"
@@ -236,7 +229,7 @@
       <iron-icon
         icon="simpla-article-toolbar:add-a-photo">
       </iron-icon>
-    </button>
+    </a>
 
     <!--
       Image controls
@@ -245,35 +238,35 @@
       data-context="image"
       visible$="[[_isContext('image', context)]]"
     >
-      <button
+      <a data-align="left"
         class="bar__tool bar__tool--image"
-        data-align="left"
         on-tap="_alignImage"
-        active$="[[_equals(state.image.meta.alignment, 'left')]]">
+        active$="[[_equals(state.image.meta.alignment, 'left')]]"
+        tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:vertical-align-top">
         </iron-icon>
-      </button>
+      </a>
 
-      <button
+      <a data-align="center"
         class="bar__tool bar__tool--image"
-        data-align="center"
         on-tap="_alignImage"
-        active$="[[_equals(state.image.meta.alignment, 'center')]]">
+        active$="[[_equals(state.image.meta.alignment, 'center')]]"
+        tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:vertical-align-center">
         </iron-icon>
-      </button>
+      </a>
 
-      <button
+      <a data-align="right"
         class="bar__tool bar__tool--image"
-        data-align="right"
         on-tap="_alignImage"
-        active$="[[_equals(state.image.meta.alignment, 'right')]]">
+        active$="[[_equals(state.image.meta.alignment, 'right')]]"
+        tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:vertical-align-bottom">
         </iron-icon>
-      </button>
+      </a>
     </div>
 
   </template>
