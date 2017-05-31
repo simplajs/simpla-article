@@ -81,7 +81,9 @@
 
       .bar__tool--range {
         /* Link opening transition */
-        transition: margin-left 150ms var(--simpla-easing-standard);
+        transition: margin-left 150ms var(--simpla-easing-standard),
+                    padding 150ms var(--simpla-easing-standard),
+                    opacity 50ms ease;
       }
 
       .range__link {
@@ -107,12 +109,10 @@
       }
 
       .bar--range[data-link-active] .bar__tool:not(.bar__tool--range-link) {
-        visibility: hidden;
-        margin-left: -1.5em; /* Tool + 0.5em padding */
-      }
-
-      .bar--range[data-link-active] .bar__tool--range-link {
-        margin-left: -2em;
+        opacity: 0;
+        margin-left: -1em;
+        padding-left: 0;
+        padding-right: 0;
       }
 
       /**
@@ -162,6 +162,7 @@
         class="bar__tool bar__tool--range"
         on-tap="_format"
         active$="[[state.bold.applied]]"
+        hidden$="[[!state.bold.applicable]]"
         tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:format-bold">
@@ -172,6 +173,7 @@
         class="bar__tool bar__tool--range"
         on-tap="_format"
         active$="[[state.italic.applied]]"
+        hidden$="[[!state.italic.applicable]]"
         tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:format-italic">
@@ -182,6 +184,7 @@
         class="bar__tool bar__tool--range"
         on-tap="_formatHeading"
         active$="[[state.heading.applied]]"
+        hidden$="[[!state.heading.applicable]]"
         tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:format-size">
@@ -192,6 +195,7 @@
         class="bar__tool bar__tool--range"
         on-tap="_format"
         active$="[[state.blockquote.applied]]"
+        hidden$="[[!state.blockquote.applicable]]"
         tabindex="0">
         <iron-icon
           icon="simpla-article-toolbar:format-quote">
@@ -201,6 +205,7 @@
       <a data-format="link"
         class="bar__tool bar__tool--range bar__tool--range-link"
         active$="[[state.link.applied]]"
+        hidden$="[[!state.link.applicable]]"
         on-tap="_toggleLink"
         tabindex="0">
         <iron-icon
@@ -446,7 +451,7 @@
        */
       _updateVisibility(event) {
         if (!(event.relatedTarget === this || this.contains(event.relatedTarget))) {
-          this.context = null;
+          // this.context = null;
         }
       }
     });
