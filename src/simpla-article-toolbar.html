@@ -396,6 +396,7 @@
           editor.off('select', this.__updatePositions);
           editor.off('select', this.__updateContext);
           editor.off('plugin', this.__updateContext);
+          editor.off('focus', this.__updateContext);
           editor.off('plugin', this.__updateState);
           editor.off('blur', this.__updateVisibility);
         }
@@ -404,6 +405,7 @@
           editor.on('select', this.__updatePositions);
           editor.on('select', this.__updateContext);
           editor.on('plugin', this.__updateContext);
+          editor.on('focus', this.__updateContext);
           editor.on('plugin', this.__updateState);
           editor.on('blur', this.__updateVisibility);
 
