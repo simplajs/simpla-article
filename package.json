@@ -4,7 +4,8 @@
   "description": "Write longform, rich-media articles seamlessly inline",
   "main": "simpla-article.html",
   "scripts": {
-    "test": "gulp test:local"
+    "test": "gulp test:local",
+    "build:tests": "gulp build:tests"
   },
   "author": "Simpla <friends@simpla.io>",
   "license": "MIT",
@@ -48,6 +49,7 @@
     "gulp-process-inline": "^0.1.1",
     "gulp-rollup-file": "^0.1.0",
     "gulp-size": "^2.0.0",
+    "lazypipe": "^1.0.1",
     "rollup-plugin-babel": "^2.6.0",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-conditional": "^1.1.1",
@@ -59,6 +61,7 @@
     "yargs": "^7.1.0"
   },
   "dependencies": {
+    "gulp-filter": "^5.0.0",
     "popper.js": "^1.9.8"
   }
 }

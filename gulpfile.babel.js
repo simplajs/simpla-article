@@ -11,6 +11,8 @@ const gulprun = require('run-sequence');
 const yargs = require('yargs');
 const browserSync = require('browser-sync');
 const wct = require('web-component-tester');
+const filter = require('gulp-filter');
+const lazypipe = require('lazypipe');
 
 // HTML
 const inline = require('gulp-inline-source');
@@ -79,6 +81,12 @@ const bs = browserSync.create(),
         }
       };
 
+const processJs = lazypipe()
+  .pipe(eslint)
+  .pipe(eslint.format)
+  .pipe(() => gulpif(!argv.debug, eslint.failAfterError()))
+  .pipe(rollup, OPTIONS.rollup);
+
 gulp.task('build', () => {
   let styles = processInline(),
       scripts = processInline();
@@ -91,10 +99,7 @@ gulp.task('build', () => {
 
           // JS
           .pipe(scripts.extract('script'))
-            .pipe(eslint())
-            .pipe(eslint.format())
-            .pipe(gulpif(!argv.debug, eslint.failAfterError()))
-            .pipe(rollup(OPTIONS.rollup))
+            .pipe(processJs())
           .pipe(scripts.restore())
 
           // CSS
@@ -108,13 +113,39 @@ gulp.task('build', () => {
         .pipe(gulp.dest('.'))
 });
 
+gulp.task('build:tests', () => {
+  const js = filter((file) => /\.(js)$/.test(file.path), { restore: true }),
+        html = filter((file) => /\.(html)$/.test(file.path), { restore: true }),
+        scripts = processInline();
+
+  return gulp.src(['test/**/*'])
+    .pipe(errorNotifier())
+
+    .pipe(html)
+      .pipe(inline(OPTIONS.inline))
+      .pipe(scripts.extract('script'))
+        .pipe(processJs())
+      .pipe(scripts.restore())
+    .pipe(html.restore)
+
+    .pipe(js)
+      .pipe(scripts.extract('script'))
+        .pipe(processJs())
+      .pipe(scripts.restore())
+    .pipe(js.restore)
+
+  .pipe(gulp.dest('.test'));
+});
+
 wct.gulp.init(gulp);
 
 gulp.task('serve', () => bs.init(OPTIONS.browserSync));
 gulp.task('refresh', () => bs.reload());
 
-gulp.task('test', ['build', 'test:local']);
+gulp.task('test', ['build', 'build:tests', 'test:local']);
 
-gulp.task('watch', () => gulp.watch(['src/**/*'], () => gulprun('build', 'refresh')));
+gulp.task('watch:src', () => gulp.watch(['src/**/*'], () => gulprun('build', 'refresh')));
+gulp.task('watch:tests', () => gulp.watch(['test/**/*'], () => gulprun('build:tests')))
+gulp.task('watch', ['watch:src', 'watch:tests']);
 
-gulp.task('default', ['build', 'serve', 'watch']);
+gulp.task('default', ['build', 'build:tests', 'serve', 'watch']);
