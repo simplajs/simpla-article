@@ -30,7 +30,7 @@
     "polymer": "^1.8.0",
     "simpla-demo-helper": "^0.1.3",
     "simpla-element-behavior": "^0.2.1",
-    "simpla-richtext-behavior": "^0.4.0"
+    "simpla-richtext-behavior": "^0.4.4"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5",
