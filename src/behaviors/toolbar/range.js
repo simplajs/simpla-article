@@ -95,12 +95,13 @@ export default {
 
   /**
    * Close link input if it receives special keys
-   * @param  {Event} e Keyup event from link input
+   * @param  {Event} event Keydown event from link input
    * @return {undefined}
    */
-  _exitLinkOnExitKeys(e) {
-    if (LINK_EXIT_KEYS.indexOf(e.keyCode) !== -1) {
+  _exitLinkOnExitKeys(event) {
+    if (LINK_EXIT_KEYS.indexOf(event.keyCode) !== -1) {
       this._rangeLinkActive = false;
+      event.preventDefault();
     }
   }
 
