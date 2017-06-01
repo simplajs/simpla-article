@@ -7,7 +7,7 @@ const GUTTER = 5,
           offset: { offset: `0,${GUTTER}` },
           preventOverflow: {
             padding: GUTTER,
-            boundariesElement: 'viewport'
+            boundariesElement: 'scrollParent'
           }
         }
       };
