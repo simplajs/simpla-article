@@ -17,10 +17,13 @@ Simpla-article is a web component that lets you write longform, rich-media artic
     <link rel="import" href="simpla-article.html">
 
     <style>
-      simpla-article {
+      body {
         font-family: sans-serif;
-        color: #303c46
+        color: #303c46;
         padding: 1em 1.5em;
+      }
+
+      simpla-article p {
         line-height: 1.6;
       }
 
