@@ -451,7 +451,7 @@
        */
       _updateVisibility(event) {
         if (!(event.relatedTarget === this || this.contains(event.relatedTarget))) {
-          // this.context = null;
+          this.context = null;
         }
       }
     });
