@@ -20,17 +20,110 @@
       </template>
     </test-fixture>
     <script>
+      const TOOLBAR_TAG_NAME = 'simpla-article-toolbar';
+
+      function getToolbar() {
+        return document.querySelector(TOOLBAR_TAG_NAME);
+      }
+
       describe('<simpla-article>', () => {
         let component;
 
-        beforeEach(function() {
+        beforeEach(() => {
           component = fixture('default');
         });
 
-        it('is okay', function() {
-          expect(component).to.be.ok;
+        before(() => {
+          // First ensure toolbar hasn't been added before editable
+          expect(
+            getElementDefinition(TOOLBAR_TAG_NAME),
+            'Toolbar not loaded'
+          ).to.not.be.ok;
         });
 
+        describe('while editable', () => {
+          beforeEach(() => {
+            component.editable = true;
+          });
+
+          it('should be active when focused', () => {
+            component.active = false;
+            component.fire('focus');
+            expect(component.active).to.be.true;
+          });
+
+          it('should be inactive when blurred', () => {
+            component.active = true;
+            component.fire('blur');
+            expect(component.active).to.be.false;
+          });
+
+          it('should stop being active when not editable', () => {
+            component.active = true;
+            component.editable = false;
+            expect(component.active).to.be.false;
+          });
+        });
+
+        describe('value', () => {
+          beforeEach(() => {
+            component.editable = true;
+          });
+
+          it('should be able to set to html', () => {
+            component.value = '<p>Hello World</p>';
+            expect(component.innerHTML).to.match(/<p>Hello World<\/p>/);
+          });
+        });
+
+        describe('toolbar', () => {
+          beforeEach(() => {
+            component.editable = true;
+          });
+
+          it('should load in the toolbar after editable', () => {
+            return pWaitFor(() => getElementDefinition(TOOLBAR_TAG_NAME));
+          });
+
+          it('should attach the editor to toolbar on focus', () => {
+            component.editable = true;
+
+            return Promise.resolve()
+              .then(wait())
+              .then(() => {
+                let toolbar = getToolbar();
+
+                component.focus();
+                expect(toolbar.editor).to.be.ok;
+              });
+          });
+
+          it('should update the toolbar with currently active editor', () => {
+            let componentA = fixture('default'),
+                componentB = fixture('default');
+
+            componentA.editable = true;
+            componentB.editable = true;
+            return Promise.resolve()
+              .then(wait())
+              .then(() => {
+                let toolbar = getToolbar(),
+                    editorA,
+                    editorB;
+
+                componentA.focus();
+                editorA = toolbar.editor;
+
+                componentB.focus();
+                editorB = toolbar.editor;
+
+                expect(
+                  editorA,
+                  'should update editor when focusing on new element'
+                ).to.not.equal(editorB);
+              });
+          });
+        });
       });
     </script>
   </body>
