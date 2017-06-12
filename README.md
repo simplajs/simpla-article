@@ -229,7 +229,7 @@ Property        | Type    | Default              | Description
 `noTypographer` | Boolean | `false`              | Whether to disable smart typography rules                       
 `editable`      | Boolean | `false`              | Whether the article is editable                                 
 `active`        | Boolean | `false`              | Whether the article is currently being edited                   
-`loaded`        | Boolean | `false`              | Wether the element has loaded and rendered its content          
+`loaded`        | Boolean | `false`              | Whether the article content has been loaded from Simpla
 
 Properties can be set either directly with JavaScript or as attributes on the element. `camelCased` properties are seralized to `kebab-cased` attributes.
 
