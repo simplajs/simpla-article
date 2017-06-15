@@ -76,6 +76,24 @@ Simpla-article lets you write longform, rich-media articles seamlessly inline wi
 <simpla-article path="/article"></simpla-article>
 ```
 
+### Contents
+
+- [Installation and setup](#installation-and-setup)
+- [Writing articles](#writing-articles)
+  - [Editing inline](#editing-inline)
+- [Saving articles](#saving-articles)
+- [Styling article content](#styling-article-content)
+- [Initializing with static content](#initializing-with-static-content)
+- [Custom placeholders](#custom-placeholders)
+- [Typographer](#typographer)
+- [Contributing](#contributing)
+
+### Resources
+
+- [API reference][api]
+- [Demo][demo]
+- [License][license]
+
 ## Installation and setup
 
 Install simpla-article with Bower (Yarn support coming soon)
@@ -84,7 +102,7 @@ Install simpla-article with Bower (Yarn support coming soon)
 $ bower i simpla-article --save
 ```
 
-[Setup Simpla][setup-simpla] on your page, then import simpla-article into your `<head>`
+[Setup Simpla][simpla-setup] on your page, then import simpla-article into your `<head>`
 
 ```html
 <link rel="import" href="/bower_components/simpla-article/simpla-article.html">
@@ -217,49 +235,21 @@ You can disable the smart typographer by giving simpla-article a `noTypographer`
 </simpla-article>
 ```
 
-## API reference
-
-### Properties
-
-Property        | Type    | Default              | Description                                                     
---------------- | ------- | -------------------- | -----------                                                     
-`path`          | String  | `undefined`          | Path to the data for the article on Simpla's API                
-`value`         | String  | `''`                 | HTML string of the content in Simpla-article                    
-`placeholder`   | String  | `'Start writing...'` | Placeholder to show when element is editable and has no content 
-`noTypographer` | Boolean | `false`              | Whether to disable smart typography rules                       
-`editable`      | Boolean | `false`              | Whether the article is editable                                 
-`active`        | Boolean | `false`              | Whether the article is currently being edited                   
-`loaded`        | Boolean | `false`              | Whether the article content has been loaded from Simpla
-
-Properties can be set either directly with JavaScript or as attributes on the element. `camelCased` properties are seralized to `kebab-cased` attributes.
-
-```html
-<simpla-article path="/article" no-typographer></simpla-article>
-
-<script>
-  document.querySelector('simpla-article').editable = true;
-</script>
-```
-
-### Events
-
-Event              | Description                                    
------------------- | -----------                                    
-`value-changed`    | Fired whenever the `items` property changes      
-`editable-changed` | Fired whenever the `editable` property changes 
-`active-changed`   | Fired whenever the `active` property changes
-`loaded-changed`   | Fired whenever the `loaded` property changes      
-
 ## Contributing
 
-If you find any issues with simpla-article please report them! If you'd like to see a new feature in supported file an issue or let us know in Simpla's public [Slack group](https://slack.simpla.io). We also happily accept PRs. 
+If you find any issues with simpla-article please report them! If you'd like to see a new feature in supported file an issue or let us know in Simpla's public [Slack group][slack-url]. We also happily accept PRs. 
 
 ***
 
 MIT © [Simpla][simpla]
 
+[api]: https://www.webcomponents.org/element/SimplaElements/simpla-article/page/API.md
+[demo]: https://www.webcomponents.org/element/SimplaElements/simpla-article/demo/demo/index.html
+[license]: https://github.com/SimplaElements/simpla-article/blob/master/LICENSE
+
 [simpla]: https://www.simpla.io
-[setup-simpla]: https://www.simpla.io/docs/guides/get-started
+[simpla-setup]: https://www.simpla.io/docs/guides/get-started
+
 [travis-badge]: https://img.shields.io/travis/SimplaElements/simpla-article.svg
 [travis-url]: https://travis-ci.org/SimplaElements/simpla-article
 [bower-badge]: https://img.shields.io/bower/v/simpla-article.svg
