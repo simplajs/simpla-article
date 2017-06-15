@@ -22,7 +22,28 @@ Properties can be set with JavaScript or as attributes on the element. `camelCas
 </script>
 ```
 
-## Custom events
+## Schema
+
+**Type:** `'Article'`
+
+Data    | Type     | Description                                           
+------- | -------- | -----------                                           
+`value` | `String` | HTML string of the rendered content in simpla-article 
+
+
+```json
+{
+  "path": "/article/path",
+  "type": "Article",
+  "data": {
+    "value": "<h1>Simpla article</h1><p>Simpla article is a new element that lets you write longform, rich-media articles seamlessly inline.</p>"
+  },
+  "createdAt": "2017-04-16T09:58:56.276Z",
+  "updatedAt": "2017-05-09T09:25:36.835Z"
+}
+```
+
+## Events
 
 Event              | Properties       | Description                                    
 ------------------ | ---------------- | -----------                                    
