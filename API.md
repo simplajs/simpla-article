@@ -9,6 +9,7 @@ Property        | Type      | Default              | Description
 `placeholder`   | `String`  | `'Start writing...'` | Placeholder to show when element is editable and has no content 
 `noTypographer` | `Boolean` | `false`              | Whether to disable smart typography rules                       
 `editable`      | `Boolean` | `false`              | Whether the article is editable                                 
+`readonly`      | `Boolean` | `false`              | Whether the article is able to become editable                                 
 `active`        | `Boolean` | `false`              | Whether the article is currently being edited                   
 `loaded`        | `Boolean` | `false`              | Whether the article content has been loaded from Simpla
 

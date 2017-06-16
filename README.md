@@ -65,6 +65,11 @@ Simpla-article lets you write longform, rich-media articles seamlessly inline wi
       simpla-article blockquote p:last-of-type {
         margin-bottom: 0.5em;
       }
+
+      simpla-article a {
+        text-decoration: none;
+        color: #1bd4dc;
+      }
     </style>
     <next-code-block></next-code-block>
   </template>
@@ -86,6 +91,7 @@ Simpla-article lets you write longform, rich-media articles seamlessly inline wi
 - [Initializing with static content](#initializing-with-static-content)
 - [Custom placeholders](#custom-placeholders)
 - [Typographer](#typographer)
+- [Readonly](#readonly)
 - [Contributing](#contributing)
 
 ### Resources
@@ -233,6 +239,14 @@ You can disable the smart typographer by giving simpla-article a `noTypographer`
   path="/article" 
   no-typographer>
 </simpla-article>
+```
+
+## Readonly
+
+Simpla-article has a `readonly` property that stops it from becoming editable, even if Simpla is in edit mode or you try to set `editable` on the element directly. This is useful for using simpla-article to purely consume and display content from Simpla's API.
+
+```html
+<simpla-article path="/article" readonly></simpla-article>
 ```
 
 ## Contributing

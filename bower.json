@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "polymer": "^1.8.0",
-    "simpla-element-behavior": "^0.2.1",
+    "simpla-element-behavior": "^0.2.3",
     "simpla-richtext-behavior": "^0.4.4"
   },
   "devDependencies": {
