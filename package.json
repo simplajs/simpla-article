@@ -1,6 +1,6 @@
 {
   "name": "simpla-article",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Write longform, rich-media articles seamlessly inline",
   "main": "simpla-article.html",
   "scripts": {
