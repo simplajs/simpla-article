@@ -1,5 +1,5 @@
 # Simpla Article
-[![Build status][travis-badge]][travis-url] ![Size][size-badge] ![Version][bower-badge] [![Published][webcomponents-badge]][webcomponents-url] [![Simpla slack group][slack-badge]][slack-url]
+[![Build status][travis-badge]][travis-url] ![Size][size-badge] ![Version][bower-badge] [![Published][webcomponents-badge]][webcomponents-url]
 
 Simpla-article lets you write longform, rich-media articles seamlessly inline with a single HTML element. It's built on the [Simpla][simpla] content system.
 
@@ -257,19 +257,16 @@ If you find any issues with simpla-article please report them! If you'd like to 
 
 MIT © [Simpla][simpla]
 
-[api]: https://www.webcomponents.org/element/SimplaElements/simpla-article/page/API.md
-[demo]: https://www.webcomponents.org/element/SimplaElements/simpla-article/demo/demo/index.html
-[license]: https://github.com/SimplaElements/simpla-article/blob/master/LICENSE
-
 [simpla]: https://www.simpla.io
-[simpla-setup]: https://www.simpla.io/docs/guides/get-started
+[simpla-setup]: https://docs.simpla.io/guides/get-started.html
 
-[travis-badge]: https://img.shields.io/travis/SimplaElements/simpla-article.svg
-[travis-url]: https://travis-ci.org/SimplaElements/simpla-article
+[api]: https://www.webcomponents.org/element/simplaio/simpla-article/page/API.md
+[demo]: https://www.webcomponents.org/element/simplaio/simpla-article/demo/demo/index.html
+[license]: https://github.com/simplaio/simpla-article/blob/master/LICENSE
+
 [bower-badge]: https://img.shields.io/bower/v/simpla-article.svg
-[size-badge]: http://img.badgesize.io/SimplaElements/simpla-article/master/simpla-article.html?compression=gzip&label=render_bundle_%28gzip%29
+[travis-badge]: https://img.shields.io/travis/simplaio/simpla-article.svg
+[travis-url]: https://travis-ci.org/simplaio/simpla-article
+[size-badge]: http://img.badgesize.io/simplaio/simpla-article/master/simpla-article.html?compression=gzip&label=render_bundle_%28gzip%29
 [webcomponents-badge]: https://img.shields.io/badge/webcomponents.org-published-blue.svg
-[webcomponents-url]: https://www.webcomponents.org/element/SimplaElements/simpla-article
-[slack-badge]: http://slack.simpla.io/badge.svg
-[slack-url]: https://slack.simpla.io
-
+[webcomponents-url]: https://www.webcomponents.org/element/simplaio/simpla-article
